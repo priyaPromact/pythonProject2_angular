@@ -1,0 +1,26 @@
+<html>
+<head>
+<title> Gametime</title>
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static "therapy/css/bootstrap.css" %}" />
+ </head>
+
+<body>
+<div class="page-header">{% if user.is_authenticated %}
+<h1 style="width: 90%; float: left;"> hello {{ user.username }}!</h1><a href="/therapy/logout/">Logout</a></div><br />
+{% endif %}
+<form id="service_form" method="post" action="/therapy/add_service/">
+{% csrf_token %}
+{%if list_all_schedules%}
+	<p>Following services are available:</p>
+	<ul>
+	{%for schedule in list_all_schedules%}
+		<li>{{schedule.service}} on {{schedule.date}}</li>
+	{%endfor%}
+	</ul>
+{%else%}
+    <p>No services are available.</p>
+{%endif%}
+        </form>
+</body>
+</html>

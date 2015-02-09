@@ -1,0 +1,14 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Gametime</title>
+	<link rel="stylesheet" href="{% static "therapy/css/bootstrap.css" %}" />
+    </head> 
+  <body>
+
+	<div class="page-header"><h2> Welcome To GameTime!! </h2></div>
+	<li><a href="{% url 'therapy:register' %}">Click Here To Register!</a></li>
+	<li><a href="{% url 'therapy:login' %}">Click Here To Login</a></li>
+   </body>
+</html>

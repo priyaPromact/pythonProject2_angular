@@ -1,0 +1,11 @@
+<form id="schedule_form">
+
+<label> Service: </label><select name="service_list" ng-model="schedule.service.id"> 
+    <option  ng-selected="{{service.id == schedule.service.id}}" ng-repeat="service in services" value="{{service.id}}"> 
+	{{service.name}}
+    </option>
+</select>
+    <label>Date: </label><input type="text" ng-model="schedule.date" value="{{schedule.date|date:'d-M-y hh:mm:ss'}}" />
+    <input type="submit" name="submit" value="Save Schedule" ng-click="saveSchedule(schedule)" />
+</form>
+    
