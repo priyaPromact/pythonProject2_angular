@@ -1,7 +1,7 @@
 <div ng-repeat="schedule in schedules">
 <ul>
 <li>{{schedule.service.name}} schedule on {{schedule.date|date:"d-M-y hh:mm:ss"}}
-<a ng-click="editSchedule(schedule)" class="btn btn-small btn-primary">edit</a>
-<a ng-click="deleteSchedule(schedule)" class="btn btn-small btn-danger">delete</a></li>
+<a ng-click="editSchedule(schedule.id)" class="btn btn-small btn-primary">edit</a>
+<a ng-click="deleteSchedule(schedule.id)" class="btn btn-small btn-danger">delete</a></li>
 </ul>
 

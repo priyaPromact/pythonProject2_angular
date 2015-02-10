@@ -1,19 +1,37 @@
 //var therapyControllers = angular.module('therapyControllers',[]);
 
 therapyApp.controller('ScheduleDetailController',['$scope','$http','$state','$rootScope',
-	function($scope, $http, $state, $rootScope) {
-	    	$http.get("/therapy/api/schedule").success(function(data){
-			$scope.schedules = data;
+	function($scope, $http, $state,$rootScope) {
+	    	$http.get("/therapy/api/schedule").success(function(dataSchedule){
+			$http.get("/therapy/api/service/").success(function(dataService){
+			$scope.schedules = [];
+			for(var d in dataSchedule) {
+			   	for(var s in dataService) {
+				   if(dataService[s].id==dataSchedule[d].service) {
+			   		$scope.schedules.push({'id':dataSchedule[d].id,'service':dataService[s],'date':dataSchedule[d].date});
+				   }
+				}			
+			}
+			});
 		});
-		$scope.editSchedule = function(schedule) {
-			$rootScope.schedule=schedule;
+		$scope.editSchedule = function(scheduleId) { 
+			$rootScope.scheduleId = scheduleId
 			$state.transitionTo('edit');	
 		}
-		$scope.deleteSchedule = function(schedule) {
-			$http.delete('/therapy/api/schedule/' + schedule.id).success(function (data, status) {
-			    $http.get("/therapy/api/schedule").success(function(data){
-				$scope.schedules = data;
+		$scope.deleteSchedule = function(scheduleId) {
+			$http.delete('/therapy/api/schedule/' + scheduleId).success(function (data, status) {
+			    $http.get("/therapy/api/schedule").success(function(dataSchedule){
+			    $http.get("/therapy/api/service/").success(function(dataService){
+				$scope.schedules = [];
+			        for(var d in dataSchedule) {
+			       	    for(var s in dataService) {
+				       if(dataService[s].id==dataSchedule[d].service) {
+				   	 $scope.schedules.push({'id':dataSchedule[d].id,'service':dataService[s],'date':dataSchedule[d].date});
+					   }
+					}			
+				     }
 			    });
+		            });
 			});		
 		}
 	}
@@ -24,15 +42,11 @@ therapyApp.controller('ScheduleEditController',['$scope','$http','$stateParams',
 		$http.get("/therapy/api/service/").success(function(data){
 	     	    $scope.services = data;
 		});
-	  	$scope.schedule = $rootScope.schedule;
+		$http.get("/therapy/api/schedule/" + $rootScope.scheduleId).success(function(data){
+	     	    $scope.schedule = data;
+		});
 		$scope.saveSchedule = function(schedule) {
-			$http.get("/therapy/api/service/" + schedule.service.id).success(function(data){ console.log(data);
-		     	    $scope.service = data;
-			    $scope.scheduleData = [];
-			    $scope.scheduleData.push({'id' : schedule.id, 'service' : $scope.service, 'date': schedule.date});
-			    $http.put("/therapy/api/schedule/" + schedule.id + "/", schedule).success(function(){});
-			});
-			
+			$http.put("/therapy/api/schedule/" + schedule.id + "/", schedule).success(function(){});
 		}
 	}
 ]); 

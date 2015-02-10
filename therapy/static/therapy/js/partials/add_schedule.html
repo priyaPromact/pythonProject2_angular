@@ -1,7 +1,7 @@
 <form id="schedule_form">
 
-<label> Service: </label><select name="service_list" ng-model="schedule.service.id"> 
-    <option  ng-selected="{{service.id == schedule.service.id}}" ng-repeat="service in services" value="{{service.id}}"> 
+<label> Service: </label><select name="service_list" ng-model="schedule.service"> 
+    <option  ng-selected="{{service.id == schedule.service}}" ng-repeat="service in services" value="{{service.id}}"> 
 	{{service.name}}
     </option>
 </select>

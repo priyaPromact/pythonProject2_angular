@@ -8,14 +8,13 @@ class ServiceSerializer(serializers.ModelSerializer):
         model = Service
         fields = ('id','name','min_time','max_time','price')
 
-class ScheduleSerializer(serializers.ModelSerializer):   
-    service = ServiceSerializer() 
+class ScheduleSerializer(serializers.ModelSerializer): 
     class Meta:
         model = Schedule
         fields = ('id','service','date')
 
-    def update(self, instance, validated_data):	
-	print  validated_data.pop('service')  
+    def update(self, instance, validated_data):
+	instance.service = validated_data.get('service')  
 	instance.date = validated_data.get('date')
 	instance.save()
 	return instance
