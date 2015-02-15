@@ -106,7 +106,7 @@ def user_login(request):
                 login(request, user)
 		if request.user.is_authenticated() and request.user.has_perm('therapy.add_schedule') \
                         and request.user.has_perm('therapy.add_service') :
-                	return HttpResponseRedirect('/therapy/home')
+                	return HttpResponseRedirect('/therapy/home/#/')
 		if request.user.is_authenticated() and not request.user.has_perm('therapy.add_service') \
 			and not request.user.has_perm('therapy.add_service') :
 			return HttpResponseRedirect('/therapy/view_schedules')

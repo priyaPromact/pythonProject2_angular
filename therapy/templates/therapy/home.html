@@ -1,6 +1,6 @@
 {% load staticfiles %}
 <!DOCTYPE html>
-<html lang="en-US" ng-app="therapyApp">
+<html lang="en-US">
     <head>
         <title>Gametime</title>
 	<link rel="stylesheet" href="{% static "therapy/css/bootstrap.css" %}" />
@@ -9,7 +9,7 @@
 	<script src="{% static "therapy/js/app.js" %}"></script>
 	<script src="{% static "therapy/js/controllers.js" %}"></script>
     </head> 
-  <body >
+  <body ng-app="therapyApp">
 	
 	<div class="page-header"><h2> Welcome To GameTime!! </h2>
 		{% if user.is_authenticated %}<a href="{% url 'therapy:logout' %}">Logout</a>{% endif %}<br /></div>

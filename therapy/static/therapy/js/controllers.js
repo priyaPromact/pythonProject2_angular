@@ -37,8 +37,8 @@ therapyApp.controller('ScheduleDetailController',['$scope','$http','$state','$ro
 	}
 ]);
 
-therapyApp.controller('ScheduleEditController',['$scope','$http','$stateParams','$rootScope',
-	function($scope,$http,$stateParams,$rootScope) {
+therapyApp.controller('ScheduleEditController',['$scope','$http','$stateParams','$rootScope','$state',
+	function($scope,$http,$stateParams,$rootScope,$state) {
 		$http.get("/therapy/api/service/").success(function(data){
 	     	    $scope.services = data;
 		});
@@ -46,7 +46,9 @@ therapyApp.controller('ScheduleEditController',['$scope','$http','$stateParams',
 	     	    $scope.schedule = data;
 		});
 		$scope.saveSchedule = function(schedule) {
-			$http.put("/therapy/api/schedule/" + schedule.id + "/", schedule).success(function(){});
+			$http.put("/therapy/api/schedule/" + schedule.id + "/", schedule).success(function(){
+				$state.transitionTo('home');			
+			});
 		}
 	}
 ]); 
